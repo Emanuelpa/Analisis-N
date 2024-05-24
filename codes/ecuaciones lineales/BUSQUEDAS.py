@@ -4,6 +4,25 @@ def print_table(table):
     length = len(table)
     for row_ in table[length-5:length]:
         print(row_)
+
+#funciones para capturar errores al ingresar datos
+def input_float():
+    while True:
+        try:
+            num = float(input())
+            return num
+            break
+        except ValueError:
+            print("No ingresaste un valor válido, revisa que si sea un número")
+
+def input_int():
+    while True:
+        try:
+            num = int(input())
+            return num
+            break
+        except ValueError:
+            print("No ingresaste un valor válido, revisa que si sea un número entero")
         
 def busquedas():
     # Solicitar al usuario que ingrese la ecuación
@@ -12,9 +31,12 @@ def busquedas():
     x = sp.symbols('x')
 
     #Solicitar demás input
-    x0 = float(input("Ingrese el x0: "))
-    deltax = float(input("Ingrese el tamaño del intervalo: "))
-    max_ite = int(input("Ingrese el numero maximo de iteraciones: "))
+    print("Ingrese el x0 (número): ")
+    x0 = input_float()
+    print("Ingrese el tamaño del intervalo: ")
+    deltax = input_float()
+    print("Ingrese el numero maximo de iteraciones: ")
+    max_ite = input_int()
 
 
     try:
@@ -25,13 +47,14 @@ def busquedas():
         
     except sp.SympifyError:
         print("La ecuación ingresada no es válida.")
+
+    #inicializacion de variables
     xf = 0
     fa = 0
     fb = 0
     it = 1
-    evaluations = []
+    evaluations = [] #arreglo para guardar los resultados y mostrar la tabla al final
 
-    #Inicializar
     fa = fx.subs(x, x0)
     evaluations.append(str(0) + "    |    " + str(x0) + "      |       "  + str(fa))
     #verificamos que fa no sea raiz
